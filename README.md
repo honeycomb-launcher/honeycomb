@@ -14,8 +14,9 @@ Somebody pls make this into issues or sth idk
 - [ ] `% honeycomb profile edit`
 
 
+- [ ] `% honeycomb launch`
 - [ ] `% honeycomb launch <profile>`
-- [ ] `% honeycomb stop`
+- [ ] `% honeycomb kill`
 
 
 - [ ] `% honeycomb account login`
