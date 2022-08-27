@@ -1,5 +1,6 @@
 mod cli;
 mod config;
+mod profile;
 
 use std::fmt::Pointer;
 use dialoguer::Select;
