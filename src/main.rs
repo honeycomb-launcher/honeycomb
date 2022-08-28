@@ -11,9 +11,9 @@ mod profile;
 mod mock_data;
 
 use cli::Cli;
-use cli::Parser;
-
 use cli::Commands;
+
+use clap::Parser;
 
 fn main() {
     let cli = Cli::parse();
@@ -21,7 +21,8 @@ fn main() {
     match cli.command() {
         Some(Commands::Profile { create }) => {
             if *create {
-                profile::create();
+                let profile = profile::create();
+                println!("{:#?}", profile);
             }
         }
         None => {}

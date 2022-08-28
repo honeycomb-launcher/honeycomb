@@ -1,12 +1,13 @@
 use std::path::PathBuf;
-pub use clap::Parser;
 
+use clap::Parser;
 use clap::Subcommand;
 
 use crate::config;
 
 #[derive(Parser)]
 pub struct Cli {
+
     #[clap(short, long, default_value = config::CONFIG_PATH_DEFAULT)]
     config: PathBuf,
 
@@ -28,7 +29,6 @@ pub enum Commands {
         create: bool,
     }
 }
-
 
 pub mod theme {
     use std::fmt;
