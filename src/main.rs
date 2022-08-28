@@ -1,23 +1,29 @@
+#![warn(
+  clippy::all,
+  clippy::pedantic,
+  clippy::nursery,
+  clippy::cargo,
+)]
+
 mod cli;
 mod config;
 mod profile;
+mod mock_data;
 
-use std::fmt::Pointer;
-use dialoguer::Select;
-
-use cli::CLI;
+use cli::Cli;
 use cli::Parser;
 
 use cli::Commands;
 
-use config::Config;
-use crate::cli::theme::HoneycombTheme;
-
 fn main() {
-    let cli = CLI::parse();
+    let cli = Cli::parse();
 
     match cli.command() {
-        Some(Commands::Profile {}) => {}
+        Some(Commands::Profile { create }) => {
+            if *create {
+                profile::create();
+            }
+        }
         None => {}
     }
 }
