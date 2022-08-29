@@ -139,6 +139,7 @@ dependencies = [
  "console",
  "dialoguer",
  "indicatif",
+ "semver",
  "serde",
  "serde_json",
 ]
@@ -268,6 +269,15 @@ name = "ryu"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4501abdff3ae82a1c1b477a17252eb69cee9e66eb915c1abaa4f44d873df9f09"
+
+[[package]]
+name = "semver"
+version = "1.0.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "93f6841e709003d68bb2deee8c343572bf446003ec20a583e76f7b15cebf3711"
+dependencies = [
+ "serde",
+]
 
 [[package]]
 name = "serde"

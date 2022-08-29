@@ -37,7 +37,7 @@ pub mod theme {
     pub struct HoneycombTheme;
 
     impl HoneycombTheme {
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self {}
         }
     }
@@ -131,7 +131,7 @@ pub mod theme {
             self.format_prompt(f, prompt)
         }
 
-        /// Formats a multi_select prompt after selection.
+        /// Formats a `multi_select` prompt after selection.
         fn format_multi_select_prompt_selection(&self, f: &mut dyn fmt::Write, prompt: &str, selections: &[&str]) -> fmt::Result {
             write!(f, "> {}: ", prompt)?;
             for (idx, sel) in selections.iter().enumerate() {
@@ -171,5 +171,3 @@ pub mod theme {
         }
     }
 }
-
-

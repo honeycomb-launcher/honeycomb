@@ -1,9 +1,4 @@
-#![warn(
-  clippy::all,
-  clippy::pedantic,
-  clippy::nursery,
-  clippy::cargo,
-)]
+#![warn(clippy::all)] // the reddit comment was right, enabling more than just that really becomes annoying as hell
 
 mod cli;
 mod config;

@@ -1,6 +1,9 @@
 use console::Term;
-pub use serde::Serialize;
-pub use serde::Deserialize;
+use serde::Serialize;
+use serde::Deserialize;
+
+extern crate semver;
+use semver::Version;
 
 #[derive(Eq, PartialEq, Clone, Debug, Serialize, Deserialize)]
 pub struct Profile {
@@ -18,56 +21,6 @@ struct Meta {
     /// # profile.meta.version
     /// The internal profile version
     version: u16, // if we ever get above 64k versions, wtf are we even doing xd
-}
-
-#[derive(Eq, PartialEq, Clone, Debug, Serialize, Deserialize)]
-pub enum Version {
-    Release {
-        // the day, the game gets a recode, i'll
-        major: u8,
-        minor: u16,
-        patch: Option<u16>,
-    },
-    ReleaseCandidate {
-        major: u8,
-        minor: u16,
-        patch: Option<u16>,
-        number: u8,
-    },
-    PreRelease {
-        major: u8,
-        minor: u16,
-        patch: Option<u16>,
-        number: u8,
-    },
-    Snapshot {
-        year: u8,
-        week: u8,
-        /// While most snapshot versions generally have just a single letter as the suffix,
-        /// some -- notably april fools snapshots -- often consist of one or more words
-        suffix: String,
-    },
-    // todo: add old_beta & old_alpha; cbf rn since they dont use the same schema all the way thru
-}
-
-impl Version {
-    pub fn readable(&self) -> String {
-        match self {
-            Self::Release { major, minor, patch } => {
-                patch.map_or_else(|| format!("{major}.{minor}"), |patch| format!("{major}.{minor}.{patch}"))
-            },
-            Self::ReleaseCandidate { major, minor, patch, number } => {
-                patch.map_or_else(|| format!("{major}.{minor}-rc{number}"), |patch| format!("{major}.{minor}.{patch}-rc{number}"))
-            },
-            Self::PreRelease { major, minor, patch, number } => {
-                patch.map_or_else(|| format!("{major}.{minor}-pre{number}"), |patch| format!("{major}.{minor}.{patch}-pre{number}"))
-            },
-            Self::Snapshot { year, week, suffix } => {
-                let suffix = suffix.clone();
-                format!("{year}w{week}{suffix}")
-            },
-        }
-    }
 }
 
 #[derive(Eq, PartialEq, Copy, Clone, Debug, Serialize, Deserialize)]
@@ -139,9 +92,14 @@ pub fn create() -> Option<Profile> {
         .interact()
         .unwrap();
 
-    let versions: Vec<String> = crate::mock_data::VERSIONS.iter()
-        .map(|version| { version.readable() })
-        .collect();
+    let mut versions = vec!["latest".to_string()];
+
+    crate::mock_data::mock_minecraft_versions()
+        .iter()
+        .map(|version| { version.to_string() })
+        .for_each(|version| {
+            versions.push(version);
+        });
 
     let version: usize = dialoguer::Select::with_theme(theme)
         .items(&versions)
@@ -156,12 +114,20 @@ pub fn create() -> Option<Profile> {
         .interact_text()
         .unwrap();
 
+
+
+    // dont clutter the function with "useless" variables
+    let version = {
+        let version_index = if version == 0 { 0 } else { version - 1 };
+        crate::mock_data::mock_minecraft_versions()[version_index].clone()
+    };
+
     let profile = Profile {
         meta: Meta {
             version: 0
         },
         brand: crate::mock_data::BRANDS[brand],
-        version: crate::mock_data::VERSIONS[version].clone(),
+        version,
         name,
     };
 
