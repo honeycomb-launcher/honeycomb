@@ -5,11 +5,15 @@
   "brands": [
     {
       "name": "vanilla",
-      "modded": false
+      "modloader": false
     },
     {
       "name": "optifine",
-      "modded": false
+      "modloader": false
+    },
+    {
+      "name": "forge",
+      "modloader": true
     }
   ]
 }
