@@ -14,6 +14,14 @@
     {
       "name": "forge",
       "modloader": true
+    },
+    {
+      "name": "fabric",
+      "modloader": true
+    },
+    {
+      "name": "quilt",
+      "modloader": true
     }
   ]
 }
