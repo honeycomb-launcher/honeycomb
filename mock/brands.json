@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": 0
+  },
+  "brands": [
+    {
+      "name": "vanilla",
+      "modded": false
+    },
+    {
+      "name": "optifine",
+      "modded": false
+    }
+  ]
+}
