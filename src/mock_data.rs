@@ -13,7 +13,13 @@ macro_rules! version {
 
 use crate::profile::Brand;
 
-pub const BRANDS: &[Brand] = &[Brand::Vanilla];
+pub const BRANDS: &[Brand] = &[
+    Brand::Vanilla,
+    Brand::Forge,
+    Brand::Fabric,
+    Brand::Quilt,
+    Brand::OptiFine,
+];
 
 // this is a function because 'semver' cant handle being used in a const context
 //
